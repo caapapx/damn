@@ -1,0 +1,91 @@
+{
+  "skill_name": "damn",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "evals": [
+        {
+          "eval_name": "dashboard-choice",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 40.5,
+          "tokens": 18950
+        },
+        {
+          "eval_name": "database-choice",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 49.8,
+          "tokens": 19145
+        },
+        {
+          "eval_name": "microservices-migration",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 38.1,
+          "tokens": 19221
+        }
+      ],
+      "aggregate": {
+        "pass_rate_mean": 1.0,
+        "pass_rate_stddev": 0.0,
+        "time_mean": 42.8,
+        "time_stddev": 5.1,
+        "tokens_mean": 19105,
+        "tokens_stddev": 117
+      }
+    },
+    {
+      "name": "without_skill",
+      "evals": [
+        {
+          "eval_name": "dashboard-choice",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 28.7,
+          "tokens": 18764
+        },
+        {
+          "eval_name": "database-choice",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 50.6,
+          "tokens": 19340
+        },
+        {
+          "eval_name": "microservices-migration",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "failed": 0,
+          "total": 5,
+          "time_seconds": 79.8,
+          "tokens": 20413
+        }
+      ],
+      "aggregate": {
+        "pass_rate_mean": 1.0,
+        "pass_rate_stddev": 0.0,
+        "time_mean": 53.0,
+        "time_stddev": 21.3,
+        "tokens_mean": 19506,
+        "tokens_stddev": 697
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": 0.0,
+    "time": -10.2,
+    "tokens": -401
+  }
+}
