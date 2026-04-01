@@ -32,7 +32,7 @@
 ## 目录结构
 
 ```
-damn-skill/
+damn/
 ├── SKILL.md              # Skill定义文件
 ├── evals/
 │   └── evals.json       # 测试用例定义
