@@ -34,6 +34,12 @@
 ```
 damn/
 ├── SKILL.md              # Skill定义文件
+├── references/
+│   ├── chart-playbook.md      # 图表选用与 Mermaid 模板（按需 Read）
+│   └── damn-charts.example.json
+├── scripts/
+│   ├── install-global.sh
+│   └── render_damn_charts.py  # 可选 PNG（matplotlib）
 ├── evals/
 │   └── evals.json       # 测试用例定义
 ├── damn-workspace/       # 测试结果
@@ -46,8 +52,23 @@ damn/
 
 ## 安装使用
 
-1. **Skill（自动触发）**：将 `SKILL.md` 放入 Claude Code 的 skills 目录（或按官方要求放在带 `SKILL.md` 的 skill 文件夹内）。
-2. **Slash 命令（`/damn 你的问题`）**：将仓库中的 `.claude/commands/damn.md` 复制到目标项目的 `.claude/commands/`。在对话里输入 `/damn `，后面接完整调研问题即可；参数通过 `$ARGUMENTS` 传入。
+### 全局三平台（Cursor + Claude Code + Codex）
+
+在本仓库根目录执行（会把当前仓库路径链到 `~/.agents/skills/damn`，再链到三端 skills；并安装 Claude 全局 `/damn`）：
+
+```bash
+./scripts/install-global.sh
+```
+
+装完后**重启** Cursor、Claude Code、Codex CLI。源目录保持为当前 clone（改 `SKILL.md` 或 `references/` 即全局生效，因符号链接指向本仓库）。
+
+**可选图表**：见 `references/chart-playbook.md`；生成 PNG 需 `pip install matplotlib numpy` 后执行  
+`python3 scripts/render_damn_charts.py -i references/damn-charts.example.json -o ./chart-out`。
+
+### 项目内 / 手动
+
+1. **Skill（自动触发）**：将含 `SKILL.md` 的 `damn/` 文件夹放入各工具的全局 skills 目录，或放入项目的 `.cursor/skills/` / `.claude/skills/`。
+2. **Slash 命令（`/damn 你的问题`）**：将 `.claude/commands/damn.md` 复制到项目的 `.claude/commands/`；若已跑 `install-global.sh`，可使用用户级 `~/.claude/commands/damn.md`，任意仓库均可 `/damn …`。
 
 仅一个 `SKILL.md` 对「行为说明」足够；若你要**和文档里一样的显式口令**，需要额外的 **command 文件**（上一条），二者分工不同，不是重复。
 
