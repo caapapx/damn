@@ -42,7 +42,7 @@ damn/
 │   └── render_damn_charts.py  # 可选 PNG（matplotlib）
 ├── evals/
 │   └── evals.json       # 测试用例定义
-├── damn-workspace/       # 测试结果
+├── tests/       # 测试结果
 │   └── iteration-1/
 │       ├── benchmark.json
 │       ├── benchmark.md
