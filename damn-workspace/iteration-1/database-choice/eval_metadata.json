@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "database-choice",
+  "prompt": "help me choose between postgresql and mongodb for our new microservices project. we're building an e-commerce platform, expecting 10k orders/day initially but could scale to 100k. the data model isn't fully defined yet but we know we'll have products, orders, users, inventory. some devs want mongo for flexibility, others say postgres is more reliable. what do you think?",
+  "assertions": [
+    {
+      "text": "对比了PostgreSQL和MongoDB的核心差异",
+      "type": "structural"
+    },
+    {
+      "text": "分析了扩展性(10k到100k订单/天)的影响",
+      "type": "contextual"
+    },
+    {
+      "text": "讨论了数据模型灵活性vs可靠性的权衡",
+      "type": "content"
+    },
+    {
+      "text": "针对电商场景(products/orders/users/inventory)给出具体建议",
+      "type": "contextual"
+    },
+    {
+      "text": "提供了明确的推荐和理由",
+      "type": "structural"
+    }
+  ]
+}

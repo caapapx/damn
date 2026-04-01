@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "提供了至少2个明确的技术方案对比",
+      "passed": true,
+      "evidence": "Output clearly compares two solutions: Grafana (recommended) and React+D3.js. Section '推荐方案：Grafana' provides detailed analysis of Grafana, and section 'React+D3.js适用场景' discusses when React+D3.js would be appropriate."
+    },
+    {
+      "text": "考虑了团队技能背景(React经验)在决策中的影响",
+      "passed": true,
+      "evidence": "Line 32-33 explicitly addresses team background: 'React背景的开发者理解Grafana的配置逻辑很快' (React developers can understand Grafana configuration logic quickly). Also mentions in line 30-31 that although the team lacks Grafana experience, it's simpler than building D3.js charts from scratch."
+    },
+    {
+      "text": "评估了3个月时间约束的可行性",
+      "passed": true,
+      "evidence": "Multiple references to the 3-month timeline: Line 17 states 'Grafana可能2-3周完成，React+D3.js需要2-3个月' and line 18 notes '你们的3个月deadline用Grafana很宽裕，用React+D3.js会很紧张'. Line 72 concludes '3个月的timeline用Grafana可以做得很从容...用React+D3.js可能刚好做完，没有缓冲空间'. Implementation phases (lines 44-59) are broken down with time estimates."
+    },
+    {
+      "text": "包含成本或ROI相关的分析",
+      "passed": true,
+      "evidence": "Line 19-22 discusses maintenance costs: 'Grafana配置化管理，后期调整metrics只需修改JSON配置' vs 'React+D3.js每次新增metrics都需要写代码、测试、部署'. Line 16 mentions time cost comparison (2-3 weeks vs 2-3 months). Line 70 emphasizes value: '把节省的时间用在业务逻辑和数据分析上会更有价值'."
+    },
+    {
+      "text": "给出了明确的推荐方案",
+      "passed": true,
+      "evidence": "Line 10 clearly states '推荐方案：Grafana' and line 69 concludes with '强烈推荐Grafana'. The recommendation is unambiguous and well-justified throughout the document."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "50个metrics用Grafana可能2-3周完成，React+D3.js需要2-3个月",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Reasonable time estimates based on Grafana's native Prometheus integration vs custom development effort. Aligns with industry experience."
+    },
+    {
+      "claim": "Grafana与Prometheus原生集成，开箱即用",
+      "type": "factual",
+      "verified": true,
+      "evidence": "This is a well-known fact about Grafana's architecture and Prometheus support."
+    },
+    {
+      "claim": "Grafana基础使用1-2天即可上手",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Reasonable learning curve estimate for basic Grafana usage, consistent with typical onboarding experiences."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "Assertions are well-designed and discriminating. They test meaningful outcomes that require genuine analysis rather than superficial compliance. All five assertions check different dimensions (structure, context awareness, time feasibility, cost analysis, clear recommendation) and would fail if the output were generic or incomplete."
+  }
+}

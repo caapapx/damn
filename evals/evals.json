@@ -1,0 +1,23 @@
+{
+  "skill_name": "damn",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我们公司想做一个实时数据分析dashboard,现在在纠结用React+D3.js还是直接上Grafana。我们有大概50个不同的metrics要展示,数据来自Prometheus,团队里3个前端都是React背景但没人碰过Grafana。预算不是大问题但希望3个月内能上线。你觉得哪个方案更合适?",
+      "expected_output": "系统化的技术选型分析,包含Top 3方案对比、ROI评估、风险分析,并基于团队技能、时间约束给出明确推荐",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "help me choose between postgresql and mongodb for our new microservices project. we're building an e-commerce platform, expecting 10k orders/day initially but could scale to 100k. the data model isn't fully defined yet but we know we'll have products, orders, users, inventory. some devs want mongo for flexibility, others say postgres is more reliable. what do you think?",
+      "expected_output": "完整的数据库选型报告,包含技术成熟度对比、扩展性分析、成本评估、团队学习曲线,以及针对电商场景的具体建议",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我在考虑要不要把现有的monolithic应用拆成微服务。现在的系统是Django写的,大概15万行代码,5个人维护,每次发版都很痛苦要测好久。但我也听说微服务很复杂,不知道值不值得。能帮我分析一下吗?",
+      "expected_output": "深度的架构决策分析,包含单体vs微服务的利弊、迁移成本、技术债务评估、分阶段迁移方案,以及基于团队规模的可行性建议",
+      "files": []
+    }
+  ]
+}

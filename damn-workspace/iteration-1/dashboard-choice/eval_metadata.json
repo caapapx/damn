@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "dashboard-choice",
+  "prompt": "我们公司想做一个实时数据分析dashboard,现在在纠结用React+D3.js还是直接上Grafana。我们有大概50个不同的metrics要展示,数据来自Prometheus,团队里3个前端都是React背景但没人碰过Grafana。预算不是大问题但希望3个月内能上线。你觉得哪个方案更合适?",
+  "assertions": [
+    {
+      "text": "提供了至少2个明确的技术方案对比",
+      "type": "structural"
+    },
+    {
+      "text": "考虑了团队技能背景(React经验)在决策中的影响",
+      "type": "contextual"
+    },
+    {
+      "text": "评估了3个月时间约束的可行性",
+      "type": "contextual"
+    },
+    {
+      "text": "包含成本或ROI相关的分析",
+      "type": "content"
+    },
+    {
+      "text": "给出了明确的推荐方案",
+      "type": "structural"
+    }
+  ]
+}

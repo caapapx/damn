@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "对比了PostgreSQL和MongoDB的核心差异",
+      "passed": true,
+      "evidence": "Response compares core differences throughout: relational vs document model (lines 9-10), transaction support (lines 13-19), query complexity (lines 24-25), and includes a dedicated section 'When MongoDB Makes Sense' (lines 31-38) contrasting use cases."
+    },
+    {
+      "text": "分析了扩展性(10k到100k订单/天)的影响",
+      "passed": true,
+      "evidence": "Lines 27-28 directly address scaling: '10k-100k orders/day is well within PostgreSQL's capabilities with proper indexing and standard optimization. Many companies handle millions of transactions daily on PostgreSQL.'"
+    },
+    {
+      "text": "讨论了数据模型灵活性vs可靠性的权衡",
+      "passed": true,
+      "evidence": "Lines 21-22 discuss flexibility: 'The \"flexibility\" argument for MongoDB is oversold here. PostgreSQL supports JSONB columns if you need schema flexibility.' Lines 42-43 address reliability: 'PostgreSQL has decades of battle-testing. Data corruption is extremely rare. MongoDB has improved but had historical issues with data loss.'"
+    },
+    {
+      "text": "针对电商场景(products/orders/users/inventory)给出具体建议",
+      "passed": true,
+      "evidence": "Lines 9-10 specifically reference e-commerce entities: 'orders reference users and products, inventory links to products, order items connect orders to products.' Lines 14-17 provide concrete e-commerce transaction example with order creation, inventory updates, payment processing, and user history."
+    },
+    {
+      "text": "提供了明确的推荐和理由",
+      "passed": true,
+      "evidence": "Clear recommendation at line 3: 'Recommendation: PostgreSQL' followed by line 5 'For your e-commerce platform, PostgreSQL is the better choice.' Lines 50-52 provide bottom line: 'Go with PostgreSQL. It matches your use case better, reduces complexity, and gives you stronger guarantees around data integrity and transactions—critical for e-commerce.'"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 3239,
+    "transcript_chars": 0
+  },
+  "claims": [
+    {
+      "claim": "PostgreSQL has rock-solid transaction support while MongoDB's multi-document transactions are more limited",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Accurate - PostgreSQL has mature ACID transaction support, MongoDB added multi-document transactions in version 4.0 with known limitations"
+    },
+    {
+      "claim": "MongoDB had historical issues with data loss",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Accurate - MongoDB had well-documented data loss issues in earlier versions (pre-3.0) related to journaling and replication"
+    },
+    {
+      "claim": "10k-100k orders/day is well within PostgreSQL's capabilities",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Accurate - this represents roughly 1-12 orders per second, easily handled by properly configured PostgreSQL"
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid. All assertions test meaningful outcomes that require substantive analysis of the database choice problem."
+  }
+}
