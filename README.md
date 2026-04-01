@@ -46,7 +46,14 @@ damn/
 
 ## 安装使用
 
-将此skill添加到Claude Code的skill目录即可使用。
+1. **Skill（自动触发）**：将 `SKILL.md` 放入 Claude Code 的 skills 目录（或按官方要求放在带 `SKILL.md` 的 skill 文件夹内）。
+2. **Slash 命令（`/damn 你的问题`）**：将仓库中的 `.claude/commands/damn.md` 复制到目标项目的 `.claude/commands/`。在对话里输入 `/damn `，后面接完整调研问题即可；参数通过 `$ARGUMENTS` 传入。
+
+仅一个 `SKILL.md` 对「行为说明」足够；若你要**和文档里一样的显式口令**，需要额外的 **command 文件**（上一条），二者分工不同，不是重复。
+
+## 单文件会不会太简单？
+
+不会。`SKILL.md` 已经包含完整五阶段流程、三档模式、工具策略与输出格式；复杂度在**流程与约束**，不在文件个数。可选扩展（按需再加文件即可）：`references/` 放模板或检查清单、`scripts/` 放辅助脚本、或按官方示例拆成多文件 skill——仅当维护或复用需要时再拆。
 
 ## License
 
