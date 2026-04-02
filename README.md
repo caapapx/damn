@@ -1,4 +1,4 @@
-# damn - 智能技术调研与方案评估 Skill
+# DeepSee - 智能技术调研与方案评估 Skill
 
 一个置信度驱动的智能技术调研助手，通过科学方法驱动的调研流程，输出可行动的技术选型方案、竞品对标、创新建议、ROI评估。
 
@@ -32,14 +32,19 @@
 ## 目录结构
 
 ```
-damn/
+deepsee/
 ├── SKILL.md              # Skill定义文件
 ├── references/
-│   ├── chart-playbook.md      # 图表选用与 Mermaid 模板（按需 Read）
-│   └── damn-charts.example.json
+│   ├── chart-playbook.md           # 图表选用与 Mermaid 模板（按需 Read）
+│   ├── html-report-guide.md        # HTML 报告结构与样式约定
+│   ├── deepsee-charts.example.json
+│   └── report-data.example.json    # HTML 报告数据示例
 ├── scripts/
 │   ├── install-global.sh
-│   └── render_damn_charts.py  # 可选 PNG（matplotlib）
+│   ├── uninstall-global.sh
+│   ├── render_deepsee_charts.py    # 可选 PNG（matplotlib）
+│   └── generate_html_report.py     # 交互式 HTML 报告
+├── deepsee.md                      # 可选：与 SKILL 并行的长版说明（.gitignore）
 ├── evals/
 │   └── evals.json       # 测试用例定义
 ├── tests/       # 测试结果
@@ -54,7 +59,7 @@ damn/
 
 ### 全局三平台（Cursor + Claude Code + Codex）
 
-在本仓库根目录执行（会把当前仓库路径链到 `~/.agents/skills/damn`，再链到三端 skills；并安装 Claude 全局 `/damn`）：
+在本仓库根目录执行（会把当前仓库路径链到 `~/.agents/skills/deepsee`，再链到三端 skills；并安装 Claude 全局 `/deepsee`）：
 
 ```bash
 ./scripts/install-global.sh
@@ -62,13 +67,24 @@ damn/
 
 装完后**重启** Cursor、Claude Code、Codex CLI。源目录保持为当前 clone（改 `SKILL.md` 或 `references/` 即全局生效，因符号链接指向本仓库）。
 
+**卸载全局链接**（只删符号链接，**不删**本仓库）：
+
+```bash
+./scripts/uninstall-global.sh
+```
+
+卸载后同样建议重启各客户端。`~/.agents/skills/deepsee` 仅在符号链接解析到**当前仓库根目录**时才会删除；若你曾手动改指向其它路径，脚本会跳过并打印提示。
+
 **可选图表**：见 `references/chart-playbook.md`；生成 PNG 需 `pip install matplotlib numpy` 后执行  
-`python3 scripts/render_damn_charts.py -i references/damn-charts.example.json -o ./chart-out`。
+`python3 scripts/render_deepsee_charts.py -i references/deepsee-charts.example.json -o ./chart-out`。
+
+**HTML 报告**：见 `SKILL.md` 阶段五与 `references/html-report-guide.md`；生成示例：  
+`python3 scripts/generate_html_report.py -i references/report-data.example.json -o ./deepsee_report.html`（依赖以脚本内说明为准）。
 
 ### 项目内 / 手动
 
-1. **Skill（自动触发）**：将含 `SKILL.md` 的 `damn/` 文件夹放入各工具的全局 skills 目录，或放入项目的 `.cursor/skills/` / `.claude/skills/`。
-2. **Slash 命令（`/damn 你的问题`）**：将 `.claude/commands/damn.md` 复制到项目的 `.claude/commands/`；若已跑 `install-global.sh`，可使用用户级 `~/.claude/commands/damn.md`，任意仓库均可 `/damn …`。
+1. **Skill（自动触发）**：将含 `SKILL.md` 的 `deepsee/` 文件夹放入各工具的全局 skills 目录，或放入项目的 `.cursor/skills/` / `.claude/skills/`。
+2. **Slash 命令（`/deepsee 你的问题`）**：将 `.claude/commands/deepsee.md` 复制到项目的 `.claude/commands/`；若已跑 `install-global.sh`，可使用用户级 `~/.claude/commands/deepsee.md`，任意仓库均可 `/deepsee …`。
 
 仅一个 `SKILL.md` 对「行为说明」足够；若你要**和文档里一样的显式口令**，需要额外的 **command 文件**（上一条），二者分工不同，不是重复。
 

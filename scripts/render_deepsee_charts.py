@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-从 JSON 生成 damn 报告用 PNG 图表。需要 matplotlib: pip install matplotlib
-用法: python3 render_damn_charts.py -i damn-charts.json -o ./out
+从 JSON 生成 DeepSee 报告用 PNG 图表。需要 matplotlib: pip install matplotlib
+用法: python3 render_deepsee_charts.py -i deepsee-charts.json -o ./out
 """
 from __future__ import annotations
 
@@ -148,7 +148,7 @@ HANDLERS = {
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Render damn report charts from JSON")
+    ap = argparse.ArgumentParser(description="Render DeepSee report charts from JSON")
     ap.add_argument("-i", "--input", required=True, type=Path, help="JSON 配置文件")
     ap.add_argument("-o", "--output", required=True, type=Path, help="PNG 输出目录")
     args = ap.parse_args()
