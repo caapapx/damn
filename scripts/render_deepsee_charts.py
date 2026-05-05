@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-从 JSON 生成 DeepSee 报告用 PNG 图表。需要 matplotlib: pip install matplotlib
-用法: python3 render_deepsee_charts.py -i deepsee-charts.json -o ./out
+从 JSON 生成 damn 报告用 PNG 图表。需要 matplotlib: pip install matplotlib
+用法: python3 render_damn_charts.py -i damn-charts.json -o ./out
 """
 from __future__ import annotations
 

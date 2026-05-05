@@ -1,4 +1,4 @@
-# DeepSee 报告图表与可视化（已弃用）
+# damn 报告图表与可视化（已弃用）
 
 **⚠️ 本文档已弃用**
 
@@ -35,7 +35,7 @@
 
 1. **表格**已足够时：不画图。
 2. **流程、阶段、依赖**：用 **Mermaid**（`flowchart` / `gantt`）。
-3. **多维方案对比、热力矩阵、敏感性、置信度序列**：数值齐全时，写 **`deepsee-charts.json`**（见 `references/deepsee-charts.example.json`），运行 `scripts/render_deepsee_charts.py` 生成 PNG。
+3. **多维方案对比、热力矩阵、敏感性、置信度序列**：数值齐全时，写 **`damn-charts.json`**（见 `references/damn-charts.example.json`），运行 `scripts/render_damn_charts.py` 生成 PNG。
 
 ---
 
@@ -82,7 +82,7 @@ flowchart LR
 
 ## Python 脚本（确定性出 PNG）
 
-- **命令**：`python3 scripts/render_deepsee_charts.py -i deepsee-charts.json -o ./deepsee-charts-out`
+- **命令**：`python3 scripts/render_damn_charts.py -i damn-charts.json -o ./damn-charts-out`
 - **依赖**：`matplotlib`（`pip install matplotlib`）
 - **输入**：单文件 JSON；字段均为可选，仅渲染存在的块。
 
