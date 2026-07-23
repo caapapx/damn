@@ -5,10 +5,11 @@
 ## 功能特性
 
 - **5阶段结构化流程**: 问题理解 → 数据源规划 → 执行调研 → 多角色分析 → 输出报告
-- **3种工作模式**: 快速模式(≤8源) / 标准模式(≤15源) / 深度模式(≤25源)
-- **置信度驱动**: 每项结论给出置信度(0-100%) + 证据更新轨迹
-- **多角色协作**: 技术架构师、产品经理、成本分析师、行业分析师、CTO决策者
-- **科学方法论**: 第一性原理、贝叶斯推理、辩证法、经济学思维
+- **问题类型 × 模式**: measurable / strategic / landscape 与 快速/标准/深度 正交裁剪
+- **3种工作模式**: 快速契约(≤8源) / 标准(≤15源) / 深度(≤25源)
+- **证据分级**: L1 一手测量 → L4 弱二手；置信度据此校准
+- **多角色协作**: 标准/深度按需启用；快速模式跳过
+- **科学方法论**: 第一性原理、可测则先测、辩证法、触发式 ROI
 
 ## 使用场景
 
@@ -21,8 +22,8 @@
 ## 测试结果
 
 ### 质量指标
-- 所有测试用例通过率: 100%
-- 覆盖场景: Dashboard技术选型、数据库选择、微服务迁移决策
+- 评估用例见 `evals/evals.json`（含战略选型、可测对照、二元+附件等）
+- 覆盖场景: Dashboard选型、数据库选择、微服务迁移、可测性能对照、二元附件锁定
 
 ### 效率指标
 - 平均响应时间: 42.8s (比baseline快19%)
@@ -32,7 +33,7 @@
 ## 目录结构
 
 ```text
-personal/damn/
+private/damn/
 ├── SKILL.md              # Skill定义文件
 ├── references/
 │   ├── chart-playbook.md           # 图表选用与 Mermaid 模板（按需 Read）
@@ -58,7 +59,7 @@ personal/damn/
 在本仓库根目录执行（会把当前仓库路径链到 `~/.agents/skills/damn`，再链到三端 skills；并安装 Claude 全局 `/damn`）：
 
 ```bash
-./personal/damn/scripts/install-global.sh
+./private/damn/scripts/install-global.sh
 ```
 
 装完后**重启** Cursor、Claude Code、Codex CLI。源目录保持为当前 clone（改 `SKILL.md` 或 `references/` 即全局生效，因符号链接指向本仓库）。
@@ -66,7 +67,7 @@ personal/damn/
 **卸载全局链接**（只删符号链接，**不删**本仓库）：
 
 ```bash
-./personal/damn/scripts/uninstall-global.sh
+./private/damn/scripts/uninstall-global.sh
 ```
 
 卸载后同样建议重启各客户端。`~/.agents/skills/damn` 仅在符号链接解析到**当前仓库根目录**时才会删除；若你曾手动改指向其它路径，脚本会跳过并打印提示。
