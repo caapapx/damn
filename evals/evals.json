@@ -30,6 +30,24 @@
       "prompt": "就这两个选项帮我选：方案甲 vs 方案乙。附了一张配置截图。",
       "expected_output": "先解析附件约束再检索；二元推荐+折中条件；不强制凑第三方案；模式确认后立即开跑",
       "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "比较两个开源搜索框架：先查官方文档和 GitHub 的实现、Issue、Release，再给出推荐。若可用，使用 Agent Reach 的网页/GitHub/搜索渠道；如果不可用也要继续完成。",
+      "expected_output": "先按需探测能力；官方/GitHub 一手证据优先；记录渠道、实际后端或回退、时间、L级和局限；Agent Reach 不可用不阻塞结论",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "调研开发者对工具 X 的真实评价，结合 GitHub Issue 和 Reddit/X/V2EX 讨论。",
+      "expected_output": "社区内容只作为 L3/L4 的问题模式和体验代理信号；不把热度当质量或市场结论；披露登录态、采集范围和不可复验限制",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Agent Reach 未安装，帮我比较方案甲和方案乙；不要安装新工具。",
+      "expected_output": "不自动安装、不自动登录、不读取凭据；回退现有 Web/MCP/官方来源；能力缺口写入置信度和最小补证动作",
+      "files": []
     }
   ]
 }
