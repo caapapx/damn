@@ -186,18 +186,19 @@ problem_type: [主] / [次]
 3. 优先级顺序与理由
 4. 多样性要求(跨厂商/跨地域/跨时间? ——仅当对结论必要时)
 5. 工具使用计划(权威性 + 近 12–24 个月；测量步骤写清楚)
-6. 能力路由计划：若需要网页、GitHub、全网搜索或社区讨论，按 `references/capability-routing.md` 规划可选 Agent Reach 路径与回退路径。
+6. 能力路由计划：若需要网页、GitHub、全网搜索或社区讨论，按 `references/capability-routing.md` 与 `references/source-routing.md` 规划垂直来源、通用搜索和回退路径。
 
 **工具使用策略:**
 
 1. **一手测量**（若适用）: Shell/测试/API 探针/日志解析等——先于或并行于二手检索
-2. **WebSearch**: 发现权威来源与近期变化
-3. **WebFetch**: 深度提取官方文档与高质量长文
-4. **Context7 / 官方 MCP**: 涉及具体库/框架的现行 API 时优先
-5. **Grep/Read**: 本地仓库、已有调研、配置与约束
-6. **可选 Agent Reach**：仅当目标渠道确实能补充决策证据时，先运行 `agent-reach doctor --json`，读取目标渠道的 `status` 与 `active_backend`，再按参考路由调用；它不可用时不得阻塞调研。
+2. **垂直一手来源**：本地代码、GitHub、官方文档、论文 API、监管/数据源 API 优先于通用搜索
+3. **通用搜索**：按 `search_intent` 动态选择 Brave、Exa、Tavily、Firecrawl Search 或 SearXNG；不要预设全局 primary
+4. **Reader/Crawler/Browser**：搜索只发现候选，采用的 URL 必须深读；按最低足够能力选择 WebFetch、Firecrawl、Crawl4AI 或授权浏览器
+5. **Context7 / 官方 MCP**: 涉及具体库/框架的现行 API 时优先
+6. **Grep/Read**: 本地仓库、已有调研、配置与约束
+7. **可选 Agent Reach**：仅当目标渠道确实能补充决策证据时，先运行 `agent-reach doctor --json`，读取目标渠道的 `status` 与 `active_backend`，再按参考路由调用；它不可用时不得阻塞调研。
 
-优先级（通用默认）: **锁定对象与环境** →（measurable则）测量 → WebSearch 定位 → WebFetch 深挖 →（需要时）Agent Reach 渠道补证 → 交叉验证
+优先级（通用默认）: **锁定对象与环境** →（measurable则）测量 → 垂直一手来源 → 意图路由搜索发现 → 深读原文 → 交叉验证
 
 **能力路由与回退:**
 
@@ -245,7 +246,7 @@ problem_type: [...]
 2. 当前环境支持子代理/Agent tool
 3. **非**快速模式的「短对照」问题（短对照优先串行：测完再补 2–3 个权威源）
 
-并行时按来源组拆分（官方 / 评价与论文 / 社区与案例等），同一消息启动，汇总后再进入阶段四。
+并行时按任务图拆分（官方实现 / 评价与论文 / 社区与案例 / 反方证据等），子 Agent 必须返回结构化 EvidencePacket；不得按固定五角色重复阅读同一上下文。宿主能力、任务图、预算和降级规则见 `references/harness-contract.md`。
 
 **串行模式（默认 fallback）:**
 
@@ -257,7 +258,8 @@ problem_type: [...]
 2. ReAct: 思考 → 行动 → 观察 → 反思
 3. 控制总数: Low≤8 / Medium≤15 / High≤25
 4. 每条来源记质量(权威性/时效性/相关性)与证据级 Lx，并补齐来源采集账本字段；社区帖子默认最多作为 L3/L4 代理信号。
-5. 先记录渠道状态和实际后端，再记录结论；不得把社区热度当作质量、性能或市场规模证据。
+5. 记录 source adapter、strategy_id、attempt_id、canonical URL、content hash、locator 和访问/许可限制；失败、降级与 fallback 获胜不得隐藏。
+6. 先记录渠道状态和实际后端，再记录结论；不得把社区热度当作质量、性能或市场规模证据。
 
 **进度输出:**
 
@@ -287,7 +289,7 @@ problem_type: [...]
 
 **协作机制:**
 
-1. 并行初稿（各角色独立）
+1. 按 TaskGraph 并行独立证据任务；只有存在并行收益或上下文隔离价值时才创建子 Agent
 2. 一轮正题→反题→合题（标准/深度）
 3. 置信度校准（见阶段五）
 4. 第二轮讨论（仅深度且置信度<70%）

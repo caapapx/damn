@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["packet_id", "task_id", "completion_status", "claims", "sources", "gaps", "budget_used"],
+  "properties": {
+    "packet_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "completion_status": {"enum": ["completed", "partial", "failed"]},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "contradictions": {"type": "array", "items": {"type": "object"}},
+    "gaps": {"type": "array", "items": {"type": "string"}},
+    "recommended_followups": {"type": "array", "items": {"type": "string"}},
+    "budget_used": {"type": "object", "additionalProperties": {"type": ["number", "string"]}}
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": ["claim_id", "text", "source_ids", "verification_status"],
+      "properties": {
+        "claim_id": {"type": "string"},
+        "text": {"type": "string", "minLength": 1},
+        "source_ids": {"type": "array", "items": {"type": "string"}},
+        "verification_status": {"enum": ["supported", "contradicted", "inferred", "unverified"]},
+        "confidence": {"type": "string"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["source_id", "provider", "canonical_url", "retrieved_at", "locator"],
+      "properties": {
+        "source_id": {"type": "string"},
+        "provider": {"type": "string"},
+        "strategy_id": {"type": "string"},
+        "attempt_id": {"type": "string"},
+        "canonical_url": {"type": "string", "format": "uri"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "content_hash": {"type": "string"},
+        "locator": {"type": "string", "minLength": 1},
+        "access_class": {"enum": ["public", "authorized", "subscription", "restricted"]}
+      }
+    }
+  }
+}
