@@ -29,10 +29,10 @@ description: 智能技术调研与方案评估（damn）- 当用户需要技术�
 
 1. **检查上下文**：查看对话历史中最近的 damn 执行状态
 2. **识别当前阶段**：
-  - 看到"【阶段一: 问题理解】"但无阶段二 → 从阶段二开始
-  - 看到"【阶段二: 数据源规划】"但无阶段三 → 从阶段三开始
-  - 看到"【阶段三: 调研执行】"但无阶段四 → 从阶段四开始
-  - 看到"【阶段四: 多角色协作分析】"但无阶段五 → 从阶段五开始
+  - 看到"【阶段一"或问题卡但无阶段二 → 从阶段二开始
+  - 看到"【阶段二"或探测卡但无阶段三 → 从阶段三开始
+  - 看到"【阶段三"或调研完成条但无阶段四 → 从阶段四开始
+  - 看到"【阶段四"但无阶段五/决策卡 → 从阶段五开始
 3. **明确确认**（必须先输出此确认）：
   ```
   ✓ 检测到未完成的 damn 调研
@@ -119,6 +119,19 @@ problem_type: [measurable|strategic|landscape]（主/次）
 - 选项 ≥ 3 或 landscape → Top 2–3 + 淘汰理由
 - 切勿为凑「Top 3」发明无关第三方，除非它是真实折中路径
 
+### 对话内展示总则（Cursor / Codex / Claude — 必须遵守）
+
+完整微件模板见 `references/presentation-widgets.md`。硬约束摘要：
+
+1. **过程阶段用「卡」不写日志墙**：阶段一问题卡、阶段二探测卡、阶段三完成条；禁止 `CapabilityProfile: …ok; …unset…` 长行、禁止伪 JSON 墙。
+2. **表**：≤8 行 × ≤6 列；单元格 ≤20 字；状态词限 `通过|降级|不可用|未配|跳过|高|中|低|1–5`。
+3. **流程**：默认 Mermaid `flowchart`（每方案 ≤1 张、节点 ≤12）；禁止 >5 行 ASCII 框线图。
+4. **热力**：评分用 `■■■/■■□/■□□`；金额/ROI 另表，勿与评分配伍。
+5. **折叠**：标准/深度下阶段一～四各 ≤一屏扫读；完整分析只在阶段五出现一次——禁止阶段三摘要与执行摘要同构复述。
+6. **三层可视化**：L0 对话态（默认）→ L1 导出 Markdown → L2 HTML/PNG（仅用户明确要求）；详见 widgets 文末。
+
+出稿前过 `references/quality-gates.md` 的 **Presentation gate**。
+
 ## 证据分级（L1–L4）
 
 | 级 | 含义 | 典型来源 |
@@ -161,21 +174,20 @@ problem_type: [measurable|strategic|landscape]（主/次）
   - 打分: Low/Medium/High + 详细理由
   - 路由决策: 模式 + 是否启用 ROI 章 + 是否需要多角色
 
-**输出格式(必须先输出此阶段再继续；快速模式可压缩为短块):**
+**输出格式(必须先输出此阶段再继续；快速模式可压缩；模板见 presentation-widgets「问题卡」):**
 
-```
-【阶段一: 问题理解】
-核心目标:
-1. [目标1]
-2. [目标2]
-...
+```markdown
+【阶段一】复杂度 [Low|Medium|High] · [快速|标准|深度] · ROI [是|否] · 多角色 [是|否]
 
-problem_type: [主] / [次]
-决策权重: [w1], [w2], ...
-复杂度评分: [Low/Medium/High]
-理由: [...]
-路由决策: [快速/标准/深度]；ROI章节: [是/否]；多角色: [是/否]
+| 项 | 内容 |
+| --- | --- |
+| 核心目标 | 1) …；2) …；3) … |
+| problem_type | 主 / 次 |
+| 决策权重 | w1 · w2 · w3 · w4 |
+| 复杂度理由 | ≤40 字 |
 ```
+
+禁止把目标写成无表长列表后再重复一遍路由散文。
 
 ### 阶段二: 数据源规划路由
 
@@ -229,25 +241,32 @@ problem_type: [主] / [次]
 - ❌ 不要在未写 CapabilityProfile / `single_adapter_reason` 的情况下，把单一爬虫或搜索 MCP 当作默认调研栈
 - ❌ 不要对已知静态官方文档 URL 跳过 WebFetch/`.md` 直接爬整站
 
-**输出格式:**
+**输出格式（探测卡 — 禁止 CapabilityProfile / search_intent 长行墙；完整模板见 presentation-widgets）:**
 
-```
-【阶段二: 数据源规划】
-复杂度: [Low/Medium/High]
-problem_type: [...]
-CapabilityProfile: [doctor/--json 或本会话 MCP 摘要；关键项 ok|unavailable]
-search_intent: {kind, domain, freshness_required}
-discovery_adapters: [≥2 或写 single_adapter_reason + fallback_won]
-reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
-规划:
-- 一手实验: [N]项(理由: ...；不适用则写「跳过：…」)
-- 官方文档: [N]个(理由: ...)
-- 学术/benchmark: [N]篇(理由: ...)
-- 行业报告: [N]份(理由: ...；常可0)
-- 专家/社区: [N]条(理由: ...)
+内部仍须完成 CapabilityProfile 探测与硬门禁；**展示**只输出下表。doctor 原文仅在用户追问或 routing 争议时作附录。
 
-优先级: [...]
-工具计划: [...]
+```markdown
+【阶段二】复杂度 [L|M|H] · [problem_type] · 发现通道 [n]/≥2 [通过|降级]
+
+| 项 | 状态 |
+| --- | --- |
+| 发现通道 | A · B · C — ≥2 通过（或 single_adapter_reason + fallback_won） |
+| 深读策略 | 已知 URL→WebFetch；失败再 scrape |
+| 本地工具 | python3 / curl / gh / firecrawl_cli … |
+| 增强层 | agent_reach 不可用 · Brave/Exa/Tavily key 未配 |
+| 搜索意图 | kind · domain · freshness |
+
+| 源类 | 数量 | 理由（≤12 字） |
+| --- | --- | --- |
+| 一手实验 | N 或 跳过 | … |
+| 官方文档 | N | … |
+| 学术/benchmark | N | … |
+| 行业报告 | N | … |
+| 专家/社区 | N | … |
+| 案例深读 | N | … |
+
+优先级: …（一行）  
+工具计划: …（一行）  
 总数控制: Low≤8 / Medium≤15 / High≤25
 ```
 
@@ -281,14 +300,19 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 - **快速模式**: 可不播报细进度，直接到「调研完成」短汇总
 - **标准/深度**: 每完成 3–5 个源可更新一次进度
 
+```markdown
+【阶段三】[N]/[上限] · [串行|并行] · 关键发现 ≤3 条
+
+| ID | 断言摘要 | Lx | 渠道 | 局限 |
+| --- | --- | --- | --- | --- |
+| E1 | … | L2 | official | … |
+
+- 发现 1
+- 发现 2
+- 发现 3
 ```
-【阶段三: 调研完成】
-总计: [N]/[总数]
-执行模式: [并行/串行]
-来源列表: [简要列表 + Lx]
-采集记录: [渠道 / 实际后端或回退 / 时间 / 局限]
-关键发现汇总: [3-5条]
-```
+
+来源长列表进账本表即可；禁止再写一段与阶段五重复的「关键发现散文」。快速模式可省略账本，保留完成条 + 3 发现。
 
 ### 阶段四: 多角色协作分析
 
@@ -309,7 +333,7 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 3. 置信度校准（见阶段五）
 4. 第二轮讨论（仅深度且置信度<70%）
 
-标准模式下角色进度可分批输出；避免为表演「五角色」而重复同一结论。
+标准模式下角色用「合题一行表」（见 presentation-widgets）；避免为表演「五角色」而重复同一结论。
 
 ### 阶段五: 输出与交互
 
@@ -323,6 +347,7 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 
 - **快速 / 多数标准**: 一次性输出
 - **深度** 或预估明显超长: 可分 2–3 段，段间询问是否展开；**不要**默认「1/3 后必问继续」
+- **字数**：遵循 `references/word-count-guide.md`；深度超建议上限 20% 时，多余部分标「附录（默认不展开）」
 
 **ROI 章节（触发式）:**
 
@@ -330,28 +355,31 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 
 **对标矩阵:**
 
-列 = 阶段一的 **决策权重**（可映射到成熟度、风险等，但禁止无视问题硬套固定六列）。
+列 = 阶段一的 **决策权重**；单元格用热力或短状态词（见展示总则）。禁止无视问题硬套固定六列。
 
-**标准/深度报告骨架（按需裁剪章节）:**
+#### 标准/深度：对话内输出契约（必须遵守）
 
-1. 执行摘要  
-2. 调研范围与数据源（含 Lx）  
-3. 方案结论（二元：推荐+边界；多元：Top 2–3）  
-4. 对标矩阵（决策权重列）  
-5. 风险与创新点  
-6. ROI（若启用）  
-7. 置信度与证据  
-8. 下一步行动  
+顺序固定；微件见 `references/presentation-widgets.md`：
 
-对话内默认用 Markdown + 少量 ASCII 示意即可。
+1. **决策卡**（结论 + 权重热力对照表 + 置信度条）— 报告第一屏  
+2. **方案正文**（二元：推荐+边界；多元：Top 2–3）；每方案 ≤1 张 Mermaid 工作流  
+3. **对标矩阵**（决策权重列；评分与金额分表）  
+4. **风险**（2×2 表或 Mermaid quadrant；短 bullet）  
+5. **ROI**（仅触发时；数字表）  
+6. **证据账本**（ID / 断言 / Lx / 渠道 / 局限）+ 贝叶斯一行表（可选）  
+7. **下一步**（≤3 条）  
+
+**禁止：** 再写与决策卡同构的「执行摘要」长文；阶段一～四过程块在最终稿中可保留极简头，但不得重复分析。
+
+快速模式仍只用上方「快速模式输出契约」，可跳过 Mermaid（单行箭头链即可）。
 
 **导出脚本（opt-in，非默认）:**
 
 仅当用户明确要求「导出报告 / 归档 / HTML / PNG」时：
 
-1. 整理 JSON（`references/report-data.example.json`）——**数值必须来自已完成调研，禁止为填模板编造**
-2. `python3 scripts/generate_markdown_report.py ...` 或 HTML/PNG 脚本  
-3. 详见 `references/format-analysis.md`、`references/chart-playbook.md`
+1. 整理 JSON（`references/report-data.example.json`）——**数值必须来自已完成调研，禁止为填模板编造**；优先含 `decision_card` / `score_matrix` / `evidence_ledger` 字段（若生成器已支持）  
+2. L1：`python3 scripts/generate_markdown_report.py ...`；L2：HTML / `render_damn_charts.py`  
+3. 详见 `references/presentation-widgets.md`（三层）、`format-analysis.md`、`chart-playbook.md`
 
 ## 附加指令
 
@@ -359,10 +387,11 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 2. **中立性**: 批判性,避免营销语气
 3. **时效性**: 优先近 12–24 个月材料；更旧的须标明仍有效的理由
 4. **显式标签**: 思考中可标注「第一性原理 / 证据分级 / 数据源规划」等，但不要刷屏
-5. **努力缩放**: 快速模式短；深度模式才展开仪式
+5. **努力缩放**: 快速模式短；深度模式才展开仪式——且仪式用「卡/表」而非日志墙
 6. **工具优先**: 外部事实必须工具验证
 7. **状态意识**: 「继续」先恢复调研状态
 8. **通用性自检**: 若发现自己在写某一产品的专用操作手册，停下来改回「证据类型 + 决策结构」语言
+9. **展示自检**: 出稿前扫一眼是否违反「对话内展示总则」（长行 CapabilityProfile、无决策卡、ASCII 框线流程、双份执行摘要）
 
 ## 三种模式对比
 
@@ -372,7 +401,8 @@ reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 | 多角色讨论 | 跳过 | 按需一轮 | 可二轮 |
 | 一手测量 | measurable 时优先 | 按需 | 按需 |
 | 学术/行业 | 可选 | 适量 | 增加 |
-| 输出 | 快速契约；二元不凑 Top3 | 完整可裁剪 | 完整+更强证据链 |
+| 输出 | 快速契约；二元不凑 Top3 | 决策卡+热力+证据账本 | 标准+每方案 Mermaid；过程卡折叠 |
+| 展示 | 表为主；箭头链即可 | 表+可选 1 Mermaid | 表+Mermaid；禁日志墙 |
 | ROI | 默认关；触发才写 | 触发才写 | 触发才写 |
 | 分段追问 | 否 | 罕用 | 可 |
 | 适用 | 短对比、可测对照、快决策 | 常规选型 | 战略级决策 |

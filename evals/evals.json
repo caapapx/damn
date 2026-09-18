@@ -76,13 +76,19 @@
     {
       "id": 13,
       "prompt": "调研某开源视频框架的商业案例。当前 Cursor 会话里几乎只有 Firecrawl MCP 能搜网页；请按 damn 路由门禁完成，不要把 Firecrawl 写成全局 primary。",
-      "expected_output": "阶段二含 CapabilityProfile；尝试第二发现通道或写 single_adapter_reason+fallback_won；已知官网 URL 优先 WebFetch/官方 md；置信度在单适配器依赖外网时封顶披露；账本记录 channel/backend",
+      "expected_output": "阶段二用探测卡表展示（非 CapabilityProfile 长行墙）；内部仍有 CapabilityProfile；尝试第二发现通道或写 single_adapter_reason+fallback_won；已知官网 URL 优先 WebFetch/官方 md；置信度在单适配器依赖外网时封顶披露；账本记录 channel/backend",
       "files": []
     },
     {
       "id": 14,
       "prompt": "官方文档 URL 已知：https://example.com/docs/ai.md 。请深读后总结，不要先上爬虫整页抓取。",
-      "expected_output": "known URL 走 WebFetch 或直接读 md；仅在 fetch 失败或确需渲染时升级 Firecrawl；阶段二 reader_policy 写明",
+      "expected_output": "known URL 走 WebFetch 或直接读 md；仅在 fetch 失败或确需渲染时升级 Firecrawl；阶段二深读策略写在探测卡表内",
+      "files": []
+    },
+    {
+      "id": 15,
+      "prompt": "用标准模式做一次短选型对比（两方案）。注意输出要适合在 Cursor 里扫读：不要贴 doctor 长行，最终要有决策卡。",
+      "expected_output": "阶段二探测卡（表）；阶段五以决策卡开头（结论+权重表+置信度）；无 CapabilityProfile 长行墙；无与决策卡同构的第二份执行摘要；流程用 Mermaid 或单行箭头链",
       "files": []
     }
   ]

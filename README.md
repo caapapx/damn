@@ -11,6 +11,7 @@
 - **多角色协作**: 标准/深度按需启用；快速模式跳过
 - **科学方法论**: 第一性原理、可测则先测、辩证法、触发式 ROI
 - **可选互联网能力层**: 按需使用 Agent Reach 的健康检查与渠道路由；不可用时回退现有 Web/MCP，不阻塞调研
+- **对话内展示契约**: 阶段卡/探测卡/决策卡 + Mermaid；Presentation gate（见 `references/presentation-widgets.md`）
 
 ## 使用场景
 
@@ -37,7 +38,10 @@
 private/damn/
 ├── SKILL.md              # Skill定义文件
 ├── references/
-│   ├── chart-playbook.md           # 图表选用与 Mermaid 模板（按需 Read）
+│   ├── presentation-widgets.md     # L0 对话态微件（探测卡/决策卡/置信度条）
+│   ├── quality-gates.md            # Routing / Claim / Presentation gates
+│   ├── chart-playbook.md           # L2 Mermaid/PNG 选用（按需 Read）
+│   ├── format-analysis.md          # L0/L1/L2 分层说明
 │   ├── toolchain-matrix.md         # 本机工具必选/可选与回退
 │   ├── html-report-guide.md        # HTML 报告结构与样式约定
 │   ├── damn-charts.example.json

@@ -1,25 +1,17 @@
-# damn 报告图表与可视化（已弃用）
+# damn 报告图表与可视化
 
-**⚠️ 本文档已弃用**
+**默认路径是对话内 L0**（表 + Mermaid + 置信度条），见 `presentation-widgets.md`。  
+本文描述 **何时升级到 L2 PNG/HTML**，以及 Mermaid 模板。
 
-请使用新的 **HTML 报告生成系统**：
-- 生成器：`scripts/generate_html_report.py`
-- 使用指南：`references/html-report-guide.md`
-- 示例数据：`references/report-data.example.json`
+| 层 | 何时 | 工具 |
+| --- | --- | --- |
+| L0 对话态 | `/damn` 默认 | Markdown 表、Mermaid、置信度条（widgets） |
+| L1 归档 | 用户要导出 Markdown | `scripts/generate_markdown_report.py` |
+| L2 发表 | 用户要 HTML / PNG / 幻灯 | `generate_html_report.py`、`render_damn_charts.py` |
 
-新系统提供：
-- 专业的交互式 HTML 报告
-- 内置数据可视化（无需单独生成图表）
-- 响应式设计，支持移动端和打印
-- 单文件分享，无外部依赖
+HTML 指南：`html-report-guide.md`。示例数据：`report-data.example.json`、`damn-charts.example.json`。
 
----
-
-## 旧方法（仅供参考）
-
-以下内容保留用于向后兼容，但不推荐使用。
-
-仅在用户明确要求「配图、可发表级图表、幻灯片用图」或竞品/ROI 数据已**数值化**时加载本文。默认阶段五仍以 **Markdown 表格 + 文字** 为主，避免无依据的伪图表。
+仅在用户明确要求「配图、可发表级图表、幻灯片用图」或竞品/ROI 数据已**数值化**时加载 PNG 脚本。默认阶段五仍以 **决策卡 + 表格 + Mermaid** 为主，避免无依据的伪图表。
 
 ## 目录
 
@@ -34,8 +26,8 @@
 ## 选用顺序
 
 1. **表格**已足够时：不画图。
-2. **流程、阶段、依赖**：用 **Mermaid**（`flowchart` / `gantt`）。
-3. **多维方案对比、热力矩阵、敏感性、置信度序列**：数值齐全时，写 **`damn-charts.json`**（见 `references/damn-charts.example.json`），运行 `scripts/render_damn_charts.py` 生成 PNG。
+2. **流程、阶段、依赖**：用 **Mermaid**（`flowchart` / `gantt`）。禁止长 ASCII 框线。
+3. **多维方案对比、热力矩阵、敏感性、置信度序列**：数值齐全且用户要 PNG 时，写 **`damn-charts.json`**（见 `damn-charts.example.json`），运行 `scripts/render_damn_charts.py`。
 
 ---
 
@@ -105,6 +97,7 @@ flowchart LR
 
 ## 反例（不要做）
 
-- 无具体数字仍画雷达/热力图「示意」——易误导。
+- 无数值时硬画雷达/热力「显得专业」。
 - 把未校准的主观分画成精确小数图表——优先保留在表格并标置信度。
-- 为画图而画图：增加维护成本且无决策增量时跳过。
+- 对话默认塞 HTML 或大 PNG，打断 Cursor/Codex 阅读流。
+- 用多行 ASCII `+---+` 框线图代替 Mermaid。
