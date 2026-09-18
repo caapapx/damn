@@ -38,10 +38,12 @@ private/damn/
 ├── SKILL.md              # Skill定义文件
 ├── references/
 │   ├── chart-playbook.md           # 图表选用与 Mermaid 模板（按需 Read）
+│   ├── toolchain-matrix.md         # 本机工具必选/可选与回退
 │   ├── html-report-guide.md        # HTML 报告结构与样式约定
 │   ├── damn-charts.example.json
 │   └── report-data.example.json    # HTML 报告数据示例
 ├── scripts/
+│   ├── doctor.sh                   # 本机工具探测 / 建议 / 可选安装
 │   ├── install-global.sh
 │   ├── uninstall-global.sh
 │   ├── render_damn_charts.py       # 可选 PNG（matplotlib）
@@ -58,6 +60,27 @@ private/damn/
 `damn` 不复制 Agent Reach 的平台实现，也不把它作为硬依赖。涉及网页、GitHub、全网搜索或社区讨论时，按 `references/capability-routing.md` 先规划证据，再按需检查目标渠道的健康状态和实际后端。未安装、未登录、后端异常或限流时，回退到现有 Web/MCP/官方来源，并在证据账本和置信度中披露限制。
 
 该集成不会自动安装依赖、登录平台、读取/提取/注入 Cookie，或回显 Token。社区内容默认只作为 L3/L4 的体验与风险信号。
+
+### 本机工具链探测（新机推荐）
+
+```bash
+bash ./private/damn/scripts/doctor.sh            # 探测 required / optional
+bash ./private/damn/scripts/doctor.sh --suggest  # 打印安装/登录建议
+bash ./private/damn/scripts/doctor.sh --json --write-profile ~/.config/damn/capability-profile.json
+bash ./private/damn/scripts/doctor.sh --install charts   # 仅可选：matplotlib/numpy
+```
+
+分级与回退见 `references/toolchain-matrix.md`。默认不装 Agent Reach / 搜索 API；密钥只检查 `set|unset`，不回显。
+
+### 路由门禁（防「单 MCP 垄断调研」）
+
+外网调研阶段二必须：
+
+1. 输出 CapabilityProfile（`doctor.sh --json` 或本会话 MCP 清单）
+2. 发现层 ≥2 适配器，否则写 `single_adapter_reason` + `fallback_won`（依赖外网时置信度封顶 75%）
+3. 已知 URL：WebFetch / 官方 `.md` 优先于 Firecrawl scrape
+
+详见 `references/source-routing.md` Hard gates、`references/host-adapters.md`、`references/quality-gates.md` Routing gate。
 
 ## 安装使用
 

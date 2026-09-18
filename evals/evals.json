@@ -72,6 +72,18 @@
       "prompt": "微信公众号历史文章接口失效，用户要求继续查技术资料。",
       "expected_output": "将来源标记 blocked/degraded；尝试用户提供 URL、授权浏览器、合法导出或商业数据源；不使用 cookie/账号池/绕过访问控制；披露覆盖缺口",
       "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "调研某开源视频框架的商业案例。当前 Cursor 会话里几乎只有 Firecrawl MCP 能搜网页；请按 damn 路由门禁完成，不要把 Firecrawl 写成全局 primary。",
+      "expected_output": "阶段二含 CapabilityProfile；尝试第二发现通道或写 single_adapter_reason+fallback_won；已知官网 URL 优先 WebFetch/官方 md；置信度在单适配器依赖外网时封顶披露；账本记录 channel/backend",
+      "files": []
+    },
+    {
+      "id": 14,
+      "prompt": "官方文档 URL 已知：https://example.com/docs/ai.md 。请深读后总结，不要先上爬虫整页抓取。",
+      "expected_output": "known URL 走 WebFetch 或直接读 md；仅在 fetch 失败或确需渲染时升级 Firecrawl；阶段二 reader_policy 写明",
+      "files": []
     }
   ]
 }

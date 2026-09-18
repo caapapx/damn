@@ -188,17 +188,25 @@ problem_type: [主] / [次]
 5. 工具使用计划(权威性 + 近 12–24 个月；测量步骤写清楚)
 6. 能力路由计划：若需要网页、GitHub、全网搜索或社区讨论，按 `references/capability-routing.md` 与 `references/source-routing.md` 规划垂直来源、通用搜索和回退路径。
 
+**阶段二硬门禁（涉及外网/GitHub/社区时强制；纯本地 measurable 可标 N/A）:**
+
+1. **先探测再选型**：跑 `bash scripts/doctor.sh --json`（或等价列出本会话已挂载的搜索/Fetch/GitHub MCP）。把结果写入下方「CapabilityProfile」块。禁止在未探测时默认某一爬虫/搜索 MCP 为唯一工具。
+2. **发现层 ≥2 通道，否则披露**：独立 discovery 适配器至少 2 个（例：宿主 WebSearch + Firecrawl Search；或 GitHub MCP 发现 + 通用搜索）。若宿主只暴露 1 个可用搜索适配器，必须写 `single_adapter_reason` + `fallback_won: <name>`，且整体置信度默认封顶 **75%**（除非结论不依赖外网搜索）。
+3. **深读最低足够**：canonical URL 已知时，优先官方 `.md` / WebFetch / raw；**禁止**对已解析的静态文档页默认上 Firecrawl/Crawl。JS 重页、需渲染、或 WebFetch 失败后再升级爬虫。
+4. **垂直优先于通用爬取**：GitHub → GitHub MCP/`gh`/raw；库 API → Context7/官方 docs；不要用通用搜索摘要代替仓库/文档正文。
+5. 适配器愿望清单（Brave/Exa/Tavily）≠ 本机可用；以探测结果与 `references/host-adapters.md` 的宿主映射为准。细则见 `references/source-routing.md`「Hard gates」。
+
 **工具使用策略:**
 
 1. **一手测量**（若适用）: Shell/测试/API 探针/日志解析等——先于或并行于二手检索
 2. **垂直一手来源**：本地代码、GitHub、官方文档、论文 API、监管/数据源 API 优先于通用搜索
-3. **通用搜索**：按 `search_intent` 动态选择 Brave、Exa、Tavily、Firecrawl Search 或 SearXNG；不要预设全局 primary
-4. **Reader/Crawler/Browser**：搜索只发现候选，采用的 URL 必须深读；按最低足够能力选择 WebFetch、Firecrawl、Crawl4AI 或授权浏览器
+3. **通用搜索**：按 `search_intent` 在**已探测可用**的适配器中动态选择（Brave、Exa、Tavily、Firecrawl Search、SearXNG、宿主 WebSearch 等）；不要预设全局 primary；不要因为某一 MCP 最顺手就跳过探测与双通道门禁
+4. **Reader/Crawler/Browser**：搜索只发现候选，采用的 URL 必须深读；按最低足够能力选择 WebFetch → Firecrawl/Crawl4AI → 授权浏览器
 5. **Context7 / 官方 MCP**: 涉及具体库/框架的现行 API 时优先
 6. **Grep/Read**: 本地仓库、已有调研、配置与约束
-7. **可选 Agent Reach**：仅当目标渠道确实能补充决策证据时，先运行 `agent-reach doctor --json`，读取目标渠道的 `status` 与 `active_backend`，再按参考路由调用；它不可用时不得阻塞调研。
+7. **可选 Agent Reach**：仅当目标渠道确实能补充决策证据时，先运行 `agent-reach doctor --json`，读取目标渠道的 `status` 与 `active_backend`，再按参考路由调用；它不可用时不得阻塞调研——但必须在 CapabilityProfile 记 `unavailable`，不得假装「已按 Reach 路由」。
 
-优先级（通用默认）: **锁定对象与环境** →（measurable则）测量 → 垂直一手来源 → 意图路由搜索发现 → 深读原文 → 交叉验证
+优先级（通用默认）: **CapabilityProfile 探测** → **锁定对象与环境** →（measurable则）测量 → 垂直一手来源 → 意图路由搜索发现 → 最低足够深读 → 交叉验证
 
 **能力路由与回退:**
 
@@ -206,10 +214,11 @@ problem_type: [主] / [次]
 - 多后端渠道必须以 `doctor --json` 的实际 `active_backend` 为准；不能因为某个命令存在就宣称渠道可用。
 - `ok`：按当前后端执行并记录；`warn/off/error`：记录限制，改用现有 Web/MCP、官方 API 或公开资料。
 - 单渠道失败只降低该证据组的权重，不中断调研；登录态社区证据必须写明获取环境、时间和不可复验限制。
+- **本机工具链**：外网调研开始前跑 `bash scripts/doctor.sh`（默认只探测；可加 `--json` / `--suggest`）；矩阵见 `references/toolchain-matrix.md`。`--install charts` 仅装可选导出依赖。默认 `/damn` 调研路径不自动安装、不代配密钥。
 
 **来源采集账本（阶段三每条来源至少记录）:**
 
-`channel`、`backend_or_fallback`、`query_or_url`、`collected_at`、`evidence_level`、`limitations`。
+`channel`、`backend_or_fallback`、`query_or_url`、`collected_at`、`evidence_level`、`limitations`；若整轮仅单一搜索适配器，另记 `fallback_won` 与 `single_adapter_reason`。
 
 **禁止行为:**
 
@@ -217,6 +226,8 @@ problem_type: [主] / [次]
 - ❌ 不要跳过工具调用直接给依赖外部事实的结论
 - ❌ 不要为凑「每类至少 1 次搜索」而低质量检索
 - ❌ 不要把某一技术领域的检查清单写进通用流程冒充规范
+- ❌ 不要在未写 CapabilityProfile / `single_adapter_reason` 的情况下，把单一爬虫或搜索 MCP 当作默认调研栈
+- ❌ 不要对已知静态官方文档 URL 跳过 WebFetch/`.md` 直接爬整站
 
 **输出格式:**
 
@@ -224,6 +235,10 @@ problem_type: [主] / [次]
 【阶段二: 数据源规划】
 复杂度: [Low/Medium/High]
 problem_type: [...]
+CapabilityProfile: [doctor/--json 或本会话 MCP 摘要；关键项 ok|unavailable]
+search_intent: {kind, domain, freshness_required}
+discovery_adapters: [≥2 或写 single_adapter_reason + fallback_won]
+reader_policy: [known_url→WebFetch|.md；upgrade_crawl_when: …]
 规划:
 - 一手实验: [N]项(理由: ...；不适用则写「跳过：…」)
 - 官方文档: [N]个(理由: ...)

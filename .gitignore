@@ -1,2 +1,6 @@
 chart-out/
 damn.md
+.DS_Store
+scripts/__pycache__/
+**/__pycache__/
+*.pyc

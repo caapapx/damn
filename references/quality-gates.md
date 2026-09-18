@@ -1,5 +1,15 @@
 # Research Quality Gates
 
+## Routing gate
+
+Before accepting web-dependent conclusions:
+
+1. Stage 2 includes a CapabilityProfile (doctor JSON or host MCP inventory).
+2. Discovery used ≥2 adapters, or documented `single_adapter_reason` + `fallback_won`.
+3. Known canonical URLs were attempted with WebFetch/official `.md`/raw before crawl.
+4. A single search+scrape MCP used as the entire stack without the above → **routing
+   gate fail**; fix the run or lower confidence and disclose.
+
 ## Source gate
 
 Every accepted source must have a provider, strategy and attempt ID, canonical URL,

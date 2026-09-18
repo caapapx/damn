@@ -16,17 +16,33 @@ authority. A purchased provider is only an available adapter until benchmarked.
 | Exact SERP | SERP provider | SerpApi if required | result page and target URL |
 | Restricted source | authorized API/browser/export | search only for discovery | authorized browser or user file |
 
+## Hard gates (enforce in stage 2)
+
+1. **Probe before choose.** Run `scripts/doctor.sh --json` or list host MCP
+   search/fetch/GitHub tools. Wish-list adapters in this file are not "available".
+2. **Discovery diversity.** Prefer ≥2 independent discovery adapters. If only one
+   works on this host, set `single_adapter_reason` + `fallback_won` and cap
+   confidence at 75% when the answer depends on web discovery.
+3. **Cheapest sufficient reader.** Known canonical URL → official `.md` / WebFetch /
+   raw first. Upgrade to Firecrawl/Crawl4AI only after fetch failure or JS-heavy
+   pages. Do not use a crawler MCP as the default full research stack.
+4. **Vertical before generic crawl.** GitHub → GitHub MCP/`gh`/raw; library API →
+   Context7/vendor docs.
+5. **No silent Firecrawl-only.** A run that uses a single search+scrape MCP for both
+   discovery and deep-read without CapabilityProfile + `fallback_won` fails the
+   routing gate (`references/quality-gates.md`).
+
 ## Adapter order
 
 1. Use an authoritative vertical adapter when one exists.
 2. Otherwise route general discovery by `search_intent`: exact/general, semantic,
-   realtime, or exact SERP.
+   realtime, or exact SERP — among **probed-available** adapters only.
 3. Use search output only as candidates. Fetch the original page before adopting a
    claim.
 4. Select the lowest-cost sufficient reader: direct HTTP/WebFetch, Firecrawl,
    Crawl4AI, then authorized browser.
-5. Record provider health and benchmark results. Do not hard-code Brave, Exa, or
-   Tavily as universal primary.
+5. Record provider health and benchmark results. Do not hard-code Brave, Exa,
+   Tavily, **or Firecrawl** as universal primary.
 
 ## Search intent fields
 
@@ -40,7 +56,7 @@ search_intent:
   storage_required: false
 ```
 
-## Configured adapters
+## Configured adapters (wish list — probe at runtime)
 
 ```yaml
 adapters:
@@ -49,14 +65,26 @@ adapters:
     credential_ref: env:BRAVE_API_KEY
     status: candidate
   firecrawl:
-    kind: reader_crawler
-    status: existing
+    kind: reader_crawler_and_optional_search
+    status: host_dependent  # often present as Cursor MCP; never implicit primary
   exa:
     kind: semantic_search
+    credential_ref: env:EXA_API_KEY
     status: trial
+  tavily:
+    kind: general_web_search
+    credential_ref: env:TAVILY_API_KEY
+    status: candidate
   searxng:
     kind: self_hosted_metasearch
     status: fallback
+  host_websearch:
+    kind: general_web_search
+    status: host_dependent
+  host_webfetch:
+    kind: reader
+    status: host_dependent
 ```
 
-Secrets, cookies, and tokens never belong in this file or in manifests.
+Map host-visible tools in `references/host-adapters.md`. Secrets, cookies, and
+tokens never belong in this file or in manifests.

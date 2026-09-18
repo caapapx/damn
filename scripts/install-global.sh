@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
-# 将本仓库以符号链接方式安装到 Cursor / Claude Code / Codex 全局 skills（及 Claude 全局 /damn 命令）
+# Install to ~/.claude/skills (Cursor + Claude Code) and ~/.kimi/skills (Kimi Code).
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-AGENTS_SKILLS="${HOME}/.agents/skills"
-mkdir -p "${AGENTS_SKILLS}" "${HOME}/.cursor/skills" "${HOME}/.claude/skills" "${HOME}/.codex/skills" "${HOME}/.claude/commands"
-# 迁移：移除旧 damn 链接或目录
-ln -sfn "${ROOT}" "${AGENTS_SKILLS}/damn"
-ln -sfn "../../.agents/skills/damn" "${HOME}/.cursor/skills/damn"
-ln -sfn "../../.agents/skills/damn" "${HOME}/.claude/skills/damn"
-ln -sfn "../../.agents/skills/damn" "${HOME}/.codex/skills/damn"
+SM="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"
+bash "${SM}/scripts/link-user-skill.sh" "${ROOT}" "damn"
+mkdir -p "${HOME}/.claude/commands"
 ln -sfn "${ROOT}/.claude/commands/damn.md" "${HOME}/.claude/commands/damn.md"
-echo "OK: damn -> ${ROOT}"
-echo "  ~/.agents/skills/damn"
-echo "  ~/.cursor/skills/damn  ~/.claude/skills/damn  ~/.codex/skills/damn"
 echo "  ~/.claude/commands/damn.md"
-echo "Restart Cursor / Claude Code / Codex after install."
+echo "Restart Cursor / Claude Code / Kimi Code after install."
