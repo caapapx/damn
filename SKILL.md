@@ -1,9 +1,18 @@
 ---
 name: damn
-description: 智能技术调研与方案评估（damn）- 当用户需要技术选型、竞品分析、方案评估、ROI计算、技术调研时使用。适用于询问"哪个技术更好"、"如何选择框架"、"评估XX方案"、"对比XX和YY"、"技术可行性分析"等场景。即使用户只是简单提到技术选择或方案评估,也应该使用此技能来提供系统化的分析。
+description: '智能技术调研与方案评估（damn）。WHEN to use: 当用户需要技术选型、竞品分析、方案评估、ROI计算或技术调研时使用。适用于询问"哪个技术更好"、"如何选择框架"、"评估XX方案"、"对比XX和YY"、"技术可行性分析"等场景。即使用户只是简单提到技术选择或方案评估,也应该使用此技能来提供系统化的分析。'
+version: "1.0.0"
+metadata:
+  author: Gameye <caapapx@users.noreply.github.com>
+  version: "1.0.0"
+  tags: research, technology-selection, evaluation, competitive-analysis
 ---
 
 # 智能技术调研与方案评估（damn）
+
+## Purpose
+
+置信度驱动的技术调研助手：在技术选型、竞品对标、方案评估，以及成本确为决策变量时的 ROI 分析中，按证据分级输出可行动结论。
 
 ## Claude Code 调用方式
 
@@ -206,7 +215,7 @@ problem_type: [measurable|strategic|landscape]（主/次）
 2. **发现层 ≥2 通道，否则披露**：独立 discovery 适配器至少 2 个（例：宿主 WebSearch + Firecrawl Search；或 GitHub MCP 发现 + 通用搜索）。若宿主只暴露 1 个可用搜索适配器，必须写 `single_adapter_reason` + `fallback_won: <name>`，且整体置信度默认封顶 **75%**（除非结论不依赖外网搜索）。
 3. **深读最低足够**：canonical URL 已知时，优先官方 `.md` / WebFetch / raw；**禁止**对已解析的静态文档页默认上 Firecrawl/Crawl。JS 重页、需渲染、或 WebFetch 失败后再升级爬虫。
 4. **垂直优先于通用爬取**：GitHub → GitHub MCP/`gh`/raw；库 API → Context7/官方 docs；不要用通用搜索摘要代替仓库/文档正文。
-5. 适配器愿望清单（Brave/Exa/Tavily）≠ 本机可用；以探测结果与 `references/host-adapters.md` 的宿主映射为准。细则见 `references/source-routing.md`「Hard gates」。
+5. 适配器愿望清单（Brave/Exa/Tavily）≠ 本机可用；以探测结果与 `references/host-adapters.md` 的宿主映射为准。硬门禁 SSOT 见 `references/quality-gates.md` **Routing gate**；意图矩阵与适配器愿望清单见 `references/source-routing.md`。
 
 **工具使用策略:**
 

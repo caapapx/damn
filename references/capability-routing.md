@@ -13,7 +13,7 @@
 
 ## 执行契约
 
-1. 外网调研先做宿主能力探测（`scripts/doctor.sh --json` 和/或本会话 MCP 清单），再决定是否调用 Agent Reach。不要因为 Firecrawl 等单一 MCP 可用就跳过探测与双通道门禁（见 `source-routing.md` Hard gates、`host-adapters.md`）。
+1. 外网调研先做宿主能力探测（`scripts/doctor.sh --json` 和/或本会话 MCP 清单），再决定是否调用 Agent Reach。不要因为 Firecrawl 等单一 MCP 可用就跳过探测与双通道门禁（见 `quality-gates.md` Routing gate、`host-adapters.md`）。
 2. 只有规划确实需要该渠道时才探测 Reach：运行 `agent-reach doctor --json`，只读取目标渠道的 `status`、`active_backend`、`message` 和 `backends`。
 3. `status=ok` 才按运行时后端执行；`warn`、`off`、`error` 必须转入回退路径。不要仅凭命令存在、配置文件存在或历史经验宣称可用。
 4. 每条结果写入最小账本：`channel`、`backend_or_fallback`、`query_or_url`、`collected_at`、`evidence_level`、`limitations`；单适配器整轮须含 `fallback_won`。

@@ -84,7 +84,7 @@ bash ./private/damn/scripts/doctor.sh --install charts   # 仅可选：matplotli
 2. 发现层 ≥2 适配器，否则写 `single_adapter_reason` + `fallback_won`（依赖外网时置信度封顶 75%）
 3. 已知 URL：WebFetch / 官方 `.md` 优先于 Firecrawl scrape
 
-详见 `references/source-routing.md` Hard gates、`references/host-adapters.md`、`references/quality-gates.md` Routing gate。
+详见 `references/quality-gates.md` Routing gate（SSOT）、`references/source-routing.md`（意图矩阵与适配器愿望清单）、`references/host-adapters.md`。
 
 ## 安装使用
 
