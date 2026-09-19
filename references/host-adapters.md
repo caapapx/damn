@@ -37,4 +37,4 @@ Map what the session actually exposes:
 
 If the session only has Firecrawl for web discovery: still probe, still prefer
 WebFetch/GitHub verticals for deep-read, set `single_adapter_reason`, and cap
-confidence per `source-routing.md` Hard gates.
+confidence per `quality-gates.md` Routing gate.
