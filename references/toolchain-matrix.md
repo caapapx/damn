@@ -34,7 +34,7 @@
 2. **不自动登录、不读写 Cookie、不打印 Token 值。** 密钥检查只输出 `set` / `unset` / `invalid_shape`。
 3. **最佳状态** = required_* 全绿 + 你常用的 optional_enhance 为 `ok`；不是「装齐矩阵每一行」。
 4. Agent Reach / 付费搜索的安装与账单以各工具自己的文档为准；damn 只给建议命令，不代付、不代注册。
-5. **外网调研阶段二必须先探测**（本脚本或宿主 MCP 清单）。探测结果里只有 Firecrawl 等单一搜索/爬取通道时，仍须遵守 `source-routing.md` Hard gates（`single_adapter_reason` + 深读优先 WebFetch），不得把「矩阵里有 Firecrawl」理解成全局 primary。
+5. **外网调研阶段二必须先探测**（本脚本或宿主 MCP 清单）。探测结果里只有 Firecrawl 等单一搜索/爬取通道时，仍须遵守 `quality-gates.md` Routing gate（`single_adapter_reason` + 深读优先 WebFetch），不得把「矩阵里有 Firecrawl」理解成全局 primary。
 
 ## 相关文件
 

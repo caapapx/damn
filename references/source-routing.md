@@ -18,19 +18,9 @@ authority. A purchased provider is only an available adapter until benchmarked.
 
 ## Hard gates (enforce in stage 2)
 
-1. **Probe before choose.** Run `scripts/doctor.sh --json` or list host MCP
-   search/fetch/GitHub tools. Wish-list adapters in this file are not "available".
-2. **Discovery diversity.** Prefer ≥2 independent discovery adapters. If only one
-   works on this host, set `single_adapter_reason` + `fallback_won` and cap
-   confidence at 75% when the answer depends on web discovery.
-3. **Cheapest sufficient reader.** Known canonical URL → official `.md` / WebFetch /
-   raw first. Upgrade to Firecrawl/Crawl4AI only after fetch failure or JS-heavy
-   pages. Do not use a crawler MCP as the default full research stack.
-4. **Vertical before generic crawl.** GitHub → GitHub MCP/`gh`/raw; library API →
-   Context7/vendor docs.
-5. **No silent Firecrawl-only.** A run that uses a single search+scrape MCP for both
-   discovery and deep-read without CapabilityProfile + `fallback_won` fails the
-   routing gate (`references/quality-gates.md`).
+Canonical checklist: `references/quality-gates.md` **Routing gate**. This file
+does not restate those rules. Adapters listed below are wish-list candidates
+until `scripts/doctor.sh --json` (or the host MCP inventory) marks them available.
 
 ## Adapter order
 
