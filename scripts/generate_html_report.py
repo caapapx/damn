@@ -448,7 +448,7 @@ def generate_toc() -> str:
     """
 
 def generate_exec_summary(data: dict) -> str:
-    """生成执行摘要"""
+    """旧八章导出里的执行摘要。对话尾巴是收束，见 SKILL.md，不要把本节当阶段五目录。"""
     conclusion = data.get('conclusion', '暂无结论')
     recommendations = data.get('recommendations', [])
     key_risks = data.get('key_risks', [])

@@ -31,6 +31,7 @@ ASCII 柱图/框线 **不是** L0 默认；仅当宿主无法渲染 Mermaid 时�
 2. 阶段二探测卡（表，非 doctor 长行）  
 3. 证据账本或行内 Lx  
 4. 工作流 Mermaid（标准/深度）  
+5. 收束（标准/深度；四句，在下一步之前）  
 
 清单与门禁：`presentation-widgets.md`、`quality-gates.md` → Presentation gate。
 

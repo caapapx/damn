@@ -110,7 +110,7 @@ def ascii_risk_matrix(risks: list) -> str:
     return "\n".join(lines)
 
 def generate_markdown(data: dict) -> str:
-    """生成完整 Markdown 报告"""
+    """旧八章导出。对话提纲是 SKILL.md 的决策卡 + 收束，不要把本函数当阶段五目录。"""
     meta = data.get('metadata', {})
     exec_summary = data.get('executive_summary', {})
     research_scope = data.get('research_scope', {})
