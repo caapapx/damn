@@ -7,6 +7,7 @@
 - **5阶段结构化流程**: 问题理解 → 数据源规划 → 执行调研 → 多角色分析 → 输出报告
 - **问题类型 × 模式**: measurable / strategic / landscape 与 快速/标准/深度 正交裁剪
 - **3种工作模式**: 快速契约(≤8源) / 标准(≤15源) / 深度(≤25源)
+- **Prompt 门禁**: `/damn prompt <原文>`（`damn.gate.prompt`）只纠错、补全 prompt，不进入调研；见 `references/prompt-gate.md`
 - **证据分级**: L1 一手测量 → L4 弱二手；置信度据此校准
 - **多角色协作**: 标准/深度按需启用；快速模式跳过
 - **科学方法论**: 第一性原理、可测则先测、辩证法、触发式 ROI
@@ -39,6 +40,7 @@ private/damn/
 ├── SKILL.md              # Skill定义文件
 ├── references/
 │   ├── presentation-widgets.md     # L0 对话态微件（探测卡/决策卡/置信度条）
+│   ├── prompt-gate.md              # /damn prompt 门禁
 │   ├── quality-gates.md            # Routing / Claim / Presentation gates
 │   ├── chart-playbook.md           # L2 Mermaid/PNG 选用（按需 Read）
 │   ├── format-analysis.md          # L0/L1/L2 分层说明
