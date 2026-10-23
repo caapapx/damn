@@ -18,7 +18,7 @@ metadata:
 
 - **自动**：模型在匹配本 skill 的 `description` 时会按本文执行。
 - **手动（推荐，等价于「damn + 你的问题」）**：在项目里已放置 `.claude/commands/damn.md` 时，输入 **`/damn `** 并在后面直接写调研问题；命令会把后续全文注入为 **`$ARGUMENTS`**，按下方流程从阶段一开始执行。
-- **Prompt 门禁**：`/damn prompt <原文>`（ID `damn.gate.prompt`）只纠错、补全用户的 prompt，然后停止，不进入调研。`/damn prompt deep <原文>`（ID `damn.gate.prompt.deep`）另按 Depth 四问把 prompt 改深。按 `references/prompt-gate.md` 执行。
+- **Prompt 门禁**：`/damn prompt <原文>`（ID `damn.gate.prompt`）只纠错、补全用户的 prompt，然后停止，不进入调研。`/damn prompt deep <原文>`（ID `damn.gate.prompt.deep`）另按 Depth 四问把 prompt 改深。按 `prompt` skill 的 ctx 模式执行（`../prompt/references/context.md`，唯一版本，与 `/prompt ctx`、`/prompt deep` 相同）。
 
 单文件部署时：把本 `SKILL.md` 放进 Claude Code 的 skill 目录即可；若还需要固定 slash 形式，请同时拷贝同仓库的 `.claude/commands/damn.md` 到项目 `.claude/commands/`。
 
